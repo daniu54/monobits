@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3p67j68lg26b"]
+
+[ext_resource type="Script" path="res://src/network/NetworkNode.cs" id="1_a6s65"]
+[ext_resource type="Script" path="res://src/network/Network.cs" id="1_r1xda"]
+[ext_resource type="Script" path="res://src/network/Edge.cs" id="2_d1rt2"]
+
+[node name="Sandbox" type="Node2D"]
+
+[node name="Network" type="Node2D" parent="." node_paths=PackedStringArray("Nodes", "Edges")]
+position = Vector2(0, 1)
+script = ExtResource("1_r1xda")
+Nodes = []
+Edges = []
+
+[node name="NetworkNodes" type="Node2D" parent="Network"]
+
+[node name="NetworkNode1" type="Node2D" parent="Network/NetworkNodes"]
+script = ExtResource("1_a6s65")
+
+[node name="NetworkNode2" type="Node2D" parent="Network/NetworkNodes"]
+script = ExtResource("1_a6s65")
+
+[node name="Edges" type="Node2D" parent="Network"]
+
+[node name="1to2" type="Node2D" parent="Network/Edges"]
+script = ExtResource("2_d1rt2")
