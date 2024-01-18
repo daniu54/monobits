@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbnnj6rc7ldlx"]
+
+[ext_resource type="Script" path="res://src/network/NetworkNode.cs" id="1_y5p87"]
+[ext_resource type="Texture2D" uid="uid://bgc4jhbhn3l5x" path="res://icon.svg" id="2_55mpv"]
+
+[node name="NetworkNode" type="Node2D"]
+script = ExtResource("1_y5p87")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_55mpv")
+metadata/_edit_lock_ = true

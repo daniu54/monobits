@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3p67j68lg26b"]
+
+[ext_resource type="Script" path="res://src/network/Network.cs" id="1_r1xda"]
+[ext_resource type="PackedScene" uid="uid://dsx77i0fiws4x" path="res://src/network/edge.tscn" id="2_ifm2w"]
+[ext_resource type="PackedScene" uid="uid://cbnnj6rc7ldlx" path="res://src/network/network_node.tscn" id="3_phs73"]
+
+[node name="Sandbox" type="Node2D"]
+
+[node name="Network" type="Node2D" parent="." node_paths=PackedStringArray("Nodes", "Edges")]
+position = Vector2(300, 150)
+script = ExtResource("1_r1xda")
+Nodes = []
+Edges = []
+
+[node name="Edges" type="Node2D" parent="Network"]
+
+[node name="0to1" parent="Network/Edges" node_paths=PackedStringArray("From", "To") instance=ExtResource("2_ifm2w")]
+From = NodePath("../../NetworkNodes/NetworkNode0")
+To = NodePath("../../NetworkNodes/NetworkNode1")
+
+[node name="0to2" parent="Network/Edges" node_paths=PackedStringArray("From", "To") instance=ExtResource("2_ifm2w")]
+From = NodePath("../../NetworkNodes/NetworkNode0")
+To = NodePath("../../NetworkNodes/NetworkNode2")
+
+[node name="1to2" parent="Network/Edges" node_paths=PackedStringArray("From", "To") instance=ExtResource("2_ifm2w")]
+From = NodePath("../../NetworkNodes/NetworkNode1")
+To = NodePath("../../NetworkNodes/NetworkNode2")
+
+[node name="2to3" parent="Network/Edges" node_paths=PackedStringArray("From", "To") instance=ExtResource("2_ifm2w")]
+From = NodePath("../../NetworkNodes/NetworkNode2")
+To = NodePath("../../NetworkNodes/NetworkNode3")
+
+[node name="3to4" parent="Network/Edges" node_paths=PackedStringArray("From", "To") instance=ExtResource("2_ifm2w")]
+From = NodePath("../../NetworkNodes/NetworkNode3")
+To = NodePath("../../NetworkNodes/NetworkNode4")
+
+[node name="4to5" parent="Network/Edges" node_paths=PackedStringArray("From", "To") instance=ExtResource("2_ifm2w")]
+From = NodePath("../../NetworkNodes/NetworkNode4")
+To = NodePath("../../NetworkNodes/NetworkNode5")
+
+[node name="NetworkNodes" type="Node2D" parent="Network"]
+
+[node name="NetworkNode0" parent="Network/NetworkNodes" instance=ExtResource("3_phs73")]
+
+[node name="NetworkNode1" parent="Network/NetworkNodes" instance=ExtResource("3_phs73")]
+position = Vector2(300, 0)
+
+[node name="NetworkNode2" parent="Network/NetworkNodes" instance=ExtResource("3_phs73")]
+position = Vector2(0, 300)
+
+[node name="NetworkNode3" parent="Network/NetworkNodes" instance=ExtResource("3_phs73")]
+position = Vector2(300, 300)
+
+[node name="NetworkNode4" parent="Network/NetworkNodes" instance=ExtResource("3_phs73")]
+position = Vector2(600, 300)
+
+[node name="NetworkNode5" parent="Network/NetworkNodes" instance=ExtResource("3_phs73")]
+position = Vector2(600, 0)
