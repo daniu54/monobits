@@ -1,5 +1,4 @@
 using Godot;
-using static Godot.GD;
 using Godot.Collections;
 using shared;
 
@@ -14,9 +13,16 @@ public partial class Network : Node2D
     {
         Nodes = GetNode("NetworkNodes").GetChildren<NetworkNode>();
         Edges = GetNode("Edges").GetChildren<Edge>();
-    }
 
-    public override void _Process(double delta)
-    {
+        foreach (var node in Nodes)
+        {
+            node.Initialize(this);
+        }
+
+        foreach (var edge in Edges)
+        {
+            edge.Initialize(this);
+            edge.Redraw();
+        }
     }
 }

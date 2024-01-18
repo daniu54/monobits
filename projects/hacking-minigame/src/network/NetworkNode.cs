@@ -2,15 +2,29 @@ using Godot;
 
 namespace network;
 
+[Tool]
 public partial class NetworkNode : Node2D
 {
-    // Called when the node enters the scene tree for the first time.
+    [Export] public Network network;
+
+    [Signal] public delegate void NetworkNodePositionChangedEventHandler(NetworkNode node);
+
     public override void _Ready()
     {
+        SetNotifyLocalTransform(true);
     }
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
+    public override void _Notification(int notification)
     {
+        if (notification == NotificationLocalTransformChanged)
+        {
+            EmitSignal(nameof(NetworkNodePositionChanged), this);
+            return;
+        }
+    }
+
+    public void Initialize(Network newNetwork)
+    {
+        network = newNetwork;
     }
 }
