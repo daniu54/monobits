@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://d3p67j68lg26b"]
+[gd_scene load_steps=5 format=3 uid="uid://d3p67j68lg26b"]
 
 [ext_resource type="Script" path="res://src/network/Network.cs" id="1_r1xda"]
 [ext_resource type="PackedScene" uid="uid://dsx77i0fiws4x" path="res://src/network/edge.tscn" id="2_ifm2w"]
 [ext_resource type="PackedScene" uid="uid://cbnnj6rc7ldlx" path="res://src/network/network_node.tscn" id="3_phs73"]
+[ext_resource type="PackedScene" uid="uid://drkhn2puxovdv" path="res://src/player/player.tscn" id="4_4pimd"]
 
 [node name="Sandbox" type="Node2D"]
 
@@ -56,3 +57,8 @@ position = Vector2(600, 300)
 
 [node name="NetworkNode5" parent="Network/NetworkNodes" instance=ExtResource("3_phs73")]
 position = Vector2(600, 0)
+
+[node name="Player" parent="." node_paths=PackedStringArray("networkNode", "nodePath") instance=ExtResource("4_4pimd")]
+position = Vector2(199, 149)
+networkNode = NodePath("../Network/NetworkNodes/NetworkNode0")
+nodePath = [NodePath("../Network/NetworkNodes/NetworkNode0"), NodePath("../Network/NetworkNodes/NetworkNode1"), NodePath("../Network/NetworkNodes/NetworkNode2"), NodePath("../Network/NetworkNodes/NetworkNode5")]

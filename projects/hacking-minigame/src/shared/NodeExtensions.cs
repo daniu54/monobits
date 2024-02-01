@@ -26,4 +26,17 @@ public static class NodeExtensions
 
         return result;
     }
+
+    public static Tween MoveToNode(this Node2D node, Node2D target, int movementSpeed)
+    {
+        var distanceToNextNode = node.GlobalPosition.DistanceTo(target.GlobalPosition);
+
+        var animationTime = distanceToNextNode / movementSpeed;
+
+        var movementAnimation = node.CreateTween();
+
+        movementAnimation.TweenProperty(node, "global_position", target.GlobalPosition, animationTime);
+
+        return movementAnimation;
+    }
 }
