@@ -22,7 +22,6 @@ public partial class Network : Node2D
         foreach (var edge in Edges)
         {
             edge.Initialize(this);
-            edge.Redraw();
         }
     }
 }

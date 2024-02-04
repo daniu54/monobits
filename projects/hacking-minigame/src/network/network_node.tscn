@@ -1,10 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://cbnnj6rc7ldlx"]
+[gd_scene load_steps=4 format=3 uid="uid://cbnnj6rc7ldlx"]
 
 [ext_resource type="Script" path="res://src/network/NetworkNode.cs" id="1_y5p87"]
 [ext_resource type="Texture2D" uid="uid://bgc4jhbhn3l5x" path="res://icon.svg" id="2_55mpv"]
 
-[node name="NetworkNode" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_myyaa"]
+size = Vector2(90, 90)
+
+[node name="NetworkNode" type="Node2D" node_paths=PackedStringArray("ClickableArea")]
 script = ExtResource("1_y5p87")
+ClickableArea = NodePath("ClickableArea")
+
+[node name="ClickableArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClickableArea"]
+shape = SubResource("RectangleShape2D_myyaa")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.7, 0.7)
