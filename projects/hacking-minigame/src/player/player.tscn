@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://drkhn2puxovdv"]
+
+[ext_resource type="Script" path="res://src/player/Player.cs" id="1_0r2do"]
+[ext_resource type="Texture2D" uid="uid://bgc4jhbhn3l5x" path="res://icon.svg" id="2_unm08"]
+
+[node name="Player" type="Node2D" node_paths=PackedStringArray("nodePath")]
+script = ExtResource("1_0r2do")
+nodePath = []
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.517647, 1, 0.219608, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_unm08")
+metadata/_edit_lock_ = true

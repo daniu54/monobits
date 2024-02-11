@@ -13,9 +13,16 @@ public partial class Edge : Node2D
         get => _from;
         set
         {
+            if (_from is not null)
+            {
+                _from.NetworkNodePositionChanged -= OnNetworkNodePositionChanged;
+            }
             _from = value;
-            _from.NetworkNodePositionChanged += OnNetworkNodePositionChanged;
-            Redraw();
+            if (_from is not null)
+            {
+                _from.NetworkNodePositionChanged += OnNetworkNodePositionChanged;
+                RedrawEdge();
+            }
         }
     }
 
@@ -25,21 +32,21 @@ public partial class Edge : Node2D
         get => _to;
         set
         {
+            if (_to is not null)
+            {
+                _to.NetworkNodePositionChanged -= OnNetworkNodePositionChanged;
+            }
             _to = value;
-            _to.NetworkNodePositionChanged += OnNetworkNodePositionChanged;
-            Redraw();
+            if (_to is not null)
+            {
+                _to.NetworkNodePositionChanged += OnNetworkNodePositionChanged;
+                RedrawEdge();
+            }
         }
     }
 
     private NetworkNode _from;
     private NetworkNode _to;
-
-    public override void _Ready()
-    {
-        SubsctibeToNetworkNodeEvents();
-        PropertyListChanged += Redraw;
-        Redraw();
-    }
 
     public override void _Draw()
     {
@@ -49,30 +56,9 @@ public partial class Edge : Node2D
         }
     }
 
-    public override void _Notification(int notification)
-    {
-        if (notification == NotificationDragEnd)
-        {
-            return;
-        }
-    }
-
-    private void SubsctibeToNetworkNodeEvents()
-    {
-        if (From is not null)
-        {
-            From.NetworkNodePositionChanged += OnNetworkNodePositionChanged;
-        }
-
-        if (To is not null)
-        {
-            To.NetworkNodePositionChanged += OnNetworkNodePositionChanged;
-        }
-    }
-
     private void OnNetworkNodePositionChanged(NetworkNode node)
     {
-        Redraw();
+        RedrawEdge();
     }
 
     public void Initialize(Network newNetwork)
@@ -80,8 +66,11 @@ public partial class Edge : Node2D
         network = newNetwork;
     }
 
-    public void Redraw()
+    public void RedrawEdge()
     {
-        QueueRedraw();
+        if (From is not null && To is not null)
+        {
+            QueueRedraw();
+        }
     }
 }
