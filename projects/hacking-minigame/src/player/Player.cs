@@ -8,7 +8,6 @@ public partial class Player : Node2D
 {
     [Export] public Network network;
     [Export] public NetworkNode networkNode;
-    [Export] Array<NetworkNode> nodePath;
 
     [Export] public int MovementSpeed = 200;
 }
