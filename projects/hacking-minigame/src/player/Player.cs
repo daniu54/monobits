@@ -5,8 +5,8 @@ namespace player;
 
 public partial class Player : Node2D
 {
-    [Export] public Network network;
-    [Export] public NetworkNode networkNode;
+    [Export] public Network Network;
+    [Export] public NetworkNode NetworkNode;
 
     [Export] public int MovementSpeed = 200;
 }

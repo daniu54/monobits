@@ -21,7 +21,7 @@ public partial class PlayerMovementController : Node2D
         Network.NetworkNodeMouseExit += OnNetworkNodeMouseExit;
 
         // Move player to initial node
-        PlayerMovementPath.Enqueue(Player.networkNode);
+        PlayerMovementPath.Enqueue(Player.NetworkNode);
     }
 
     public override void _Process(double delta)
@@ -42,7 +42,7 @@ public partial class PlayerMovementController : Node2D
                 var nextPlayerWaypoint = PlayerMovementPath.Dequeue();
 
                 // NOTE: update position before moving
-                Player.networkNode = nextPlayerWaypoint;
+                Player.NetworkNode = nextPlayerWaypoint;
 
                 var newMovementAnimation = CreateTween();
 
@@ -52,7 +52,7 @@ public partial class PlayerMovementController : Node2D
 
                 if (PathPreviewTarget is not null)
                 {
-                    var (pathNodes, pathEdges) = Network.GetNavigationPath(start: Player.networkNode, end: PathPreviewTarget);
+                    var (pathNodes, pathEdges) = Network.GetNavigationPath(start: Player.NetworkNode, end: PathPreviewTarget);
 
                     Network.PlayerNavigationPreviewVisualizer.VisializePath(Network, pathNodes, pathEdges, trackedStartNode: Player);
                 }
@@ -62,7 +62,7 @@ public partial class PlayerMovementController : Node2D
 
     private void OnNetworkNodeClicked(NetworkNode node, Network network)
     {
-        var (pathNodes, _) = network.GetNavigationPath(start: Player.networkNode, end: node);
+        var (pathNodes, _) = network.GetNavigationPath(start: Player.NetworkNode, end: node);
 
         PlayerMovementPath = new(pathNodes);
 
@@ -73,7 +73,7 @@ public partial class PlayerMovementController : Node2D
     {
         PathPreviewTarget = node;
 
-        var (pathNodes, pathEdges) = Network.GetNavigationPath(start: Player.networkNode, end: PathPreviewTarget);
+        var (pathNodes, pathEdges) = Network.GetNavigationPath(start: Player.NetworkNode, end: PathPreviewTarget);
 
         Network.PlayerNavigationPreviewVisualizer.VisializePath(Network, pathNodes, pathEdges, trackedStartNode: Player);
     }
