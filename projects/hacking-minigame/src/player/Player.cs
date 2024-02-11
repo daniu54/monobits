@@ -10,18 +10,15 @@ public partial class Player : Node2D
 {
     [Export] public Network network;
     [Export] public NetworkNode networkNode;
-    [Export] Array<Node2D> nodePath;
+    [Export] Array<NetworkNode> nodePath;
 
     public override async void _Ready()
     {
-        var movementAnimation = CreateTween();
-
         foreach (var node in nodePath)
         {
             // TODO make movementSpeed configurable
-            this.MoveToNode(node, movementSpeed: 200, existingTween: movementAnimation);
+            await this.MoveToNode(node, movementSpeed: 200).GetFinishedAwaiter();
+            networkNode = node;
         }
-
-        await movementAnimation.GetFinishedAwaiter();
     }
 }
