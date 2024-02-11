@@ -70,9 +70,10 @@ position = Vector2(600, 300)
 [node name="NetworkNode5" parent="Network/NetworkNodes" instance=ExtResource("3_phs73")]
 position = Vector2(600, 0)
 
-[node name="Player" parent="." node_paths=PackedStringArray("networkNode") instance=ExtResource("4_4pimd")]
+[node name="Player" parent="." node_paths=PackedStringArray("Network", "NetworkNode") instance=ExtResource("4_4pimd")]
 position = Vector2(56, 79)
-networkNode = NodePath("../Network/NetworkNodes/NetworkNode0")
+Network = NodePath("../Network")
+NetworkNode = NodePath("../Network/NetworkNodes/NetworkNode0")
 
 [node name="PlayerMovementController" type="Node2D" parent="." node_paths=PackedStringArray("Network", "Player")]
 script = ExtResource("5_hghsw")

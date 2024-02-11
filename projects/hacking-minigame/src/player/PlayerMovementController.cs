@@ -19,6 +19,9 @@ public partial class PlayerMovementController : Node2D
         Network.NetworkNodeClicked += OnNetworkNodeClicked;
         Network.NetworkNodeMouseEnter += OnNetworkNodeMouseEnter;
         Network.NetworkNodeMouseExit += OnNetworkNodeMouseExit;
+
+        // Move player to initial node
+        PlayerMovementPath.Enqueue(Player.networkNode);
     }
 
     public override void _Process(double delta)
