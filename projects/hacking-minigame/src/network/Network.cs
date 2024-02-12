@@ -38,13 +38,20 @@ public partial class Network : Node2D
             node.NetworkNodeMouseEnter += OnNetworkNodeMouseEnter;
             node.NetworkNodeMouseExit += OnNetworkNodeMouseExit;
 
-            navigation.AddPoint((long)node.GetInstanceId(), node.GlobalPosition);
+            if (node.CanBeNavigatedOver)
+            {
+                navigation.AddPoint((long)node.GetInstanceId(), node.GlobalPosition);
+            }
         }
 
         foreach (var edge in Edges)
         {
             edge.Initialize(this);
-            navigation.ConnectPoints((long)edge.From.GetInstanceId(), (long)edge.To.GetInstanceId());
+
+            if (edge.From.CanBeNavigatedOver && edge.To.CanBeNavigatedOver)
+            {
+                navigation.ConnectPoints((long)edge.From.GetInstanceId(), (long)edge.To.GetInstanceId());
+            }
         }
     }
 

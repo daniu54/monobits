@@ -57,6 +57,7 @@ To = NodePath("../../NetworkNodes/NetworkNode5")
 
 [node name="NetworkNode1" parent="Network/NetworkNodes" instance=ExtResource("3_phs73")]
 position = Vector2(300, 0)
+CanBeNavigatedOver = false
 
 [node name="NetworkNode2" parent="Network/NetworkNodes" instance=ExtResource("3_phs73")]
 position = Vector2(0, 300)

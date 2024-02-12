@@ -7,6 +7,8 @@ public partial class NetworkNode : Node2D
 {
     [Export] public Network Network;
 
+    [Export] public bool CanBeNavigatedOver = true;
+
     [Signal] public delegate void NetworkNodePositionChangedEventHandler(NetworkNode node);
     [Signal] public delegate void NetworkNodeClickedEventHandler(NetworkNode node);
     [Signal] public delegate void NetworkNodeMouseEnterEventHandler(NetworkNode node);
