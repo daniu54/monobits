@@ -52,7 +52,14 @@ public partial class Edge : Node2D
     {
         if (From is not null && To is not null)
         {
-            DrawLine(From.Position, To.Position, Colors.Gray, 4f);
+            if (!From.CanBeNavigatedOver || !To.CanBeNavigatedOver)
+            {
+                DrawDashedLine(From.Position, To.Position, Colors.Red, 4f);
+            }
+            else
+            {
+                DrawLine(From.Position, To.Position, Colors.Gray, 4f);
+            }
         }
     }
 
