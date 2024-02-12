@@ -59,7 +59,15 @@ public partial class Network : Node2D
     {
         var resultNodes = new List<NetworkNode>();
 
-        var pathNodeIds = navigation.GetIdPath((long)start.GetInstanceId(), (long)end.GetInstanceId()).ToList();
+        var pathNodeIds = new List<long>();
+
+        var startId = (long)start.GetInstanceId();
+        var endId = (long)end.GetInstanceId();
+
+        if (navigation.GetPointIds().Contains(startId) && navigation.GetPointIds().Contains(endId))
+        {
+            pathNodeIds = navigation.GetIdPath(startId, endId).ToList();
+        }
 
         // NOTE: need to preserve order of nodes in here
         foreach (var pathNodeId in pathNodeIds)
