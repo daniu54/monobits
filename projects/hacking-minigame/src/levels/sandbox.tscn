@@ -39,6 +39,10 @@ To = NodePath("../../NetworkNodes/NetworkNode2")
 From = NodePath("../../NetworkNodes/NetworkNode1")
 To = NodePath("../../NetworkNodes/NetworkNode2")
 
+[node name="1to5" parent="Network/Edges" node_paths=PackedStringArray("From", "To") instance=ExtResource("2_ifm2w")]
+From = NodePath("../../NetworkNodes/NetworkNode1")
+To = NodePath("../../NetworkNodes/NetworkNode5")
+
 [node name="2to3" parent="Network/Edges" node_paths=PackedStringArray("From", "To") instance=ExtResource("2_ifm2w")]
 From = NodePath("../../NetworkNodes/NetworkNode2")
 To = NodePath("../../NetworkNodes/NetworkNode3")
