@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://d3p67j68lg26b"]
+[gd_scene load_steps=8 format=3 uid="uid://d3p67j68lg26b"]
 
 [ext_resource type="Script" path="res://src/network/Network.cs" id="1_r1xda"]
 [ext_resource type="PackedScene" uid="uid://dsx77i0fiws4x" path="res://src/network/edge.tscn" id="2_ifm2w"]
@@ -6,76 +6,178 @@
 [ext_resource type="PackedScene" uid="uid://cbnnj6rc7ldlx" path="res://src/network/network_node.tscn" id="3_phs73"]
 [ext_resource type="PackedScene" uid="uid://drkhn2puxovdv" path="res://src/player/player.tscn" id="4_4pimd"]
 [ext_resource type="Script" path="res://src/player/PlayerMovementController.cs" id="5_hghsw"]
+[ext_resource type="Script" path="res://src/ui/ToggleCollapseButton.cs" id="7_cbbbk"]
 
-[node name="Sandbox" type="Node2D"]
+[node name="Root" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Network" type="Node2D" parent="."]
+[node name="Sandbox" type="Node2D" parent="."]
+
+[node name="Network" type="Node2D" parent="Sandbox"]
 position = Vector2(300, 150)
 script = ExtResource("1_r1xda")
 
-[node name="PlayerNavigationPreviewVisualizer" type="Node2D" parent="Network"]
+[node name="PlayerNavigationPreviewVisualizer" type="Node2D" parent="Sandbox/Network"]
 script = ExtResource("2_kbp3g")
 PathNodeColor = Color(0, 1, 0, 0)
 TrackedStartNodeColor = Color(0, 1, 0, 0)
 
-[node name="PlayerNavigationPathVisualizer" type="Node2D" parent="Network"]
+[node name="PlayerNavigationPathVisualizer" type="Node2D" parent="Sandbox/Network"]
 script = ExtResource("2_kbp3g")
 PathNodeColor = Color(0.858824, 0.278431, 0.262745, 0)
 PathEdgeColor = Color(0.72549, 0.392157, 0.160784, 1)
 TrackedStartNodeColor = Color(0.858824, 0.278431, 0.262745, 0)
 TrackedStartNodeEdgeColor = Color(0.72549, 0.392157, 0.160784, 1)
 
-[node name="Edges" type="Node2D" parent="Network"]
+[node name="Edges" type="Node2D" parent="Sandbox/Network"]
 
-[node name="0to1" parent="Network/Edges" node_paths=PackedStringArray("From", "To") instance=ExtResource("2_ifm2w")]
+[node name="0to1" parent="Sandbox/Network/Edges" node_paths=PackedStringArray("From", "To") instance=ExtResource("2_ifm2w")]
 From = NodePath("../../NetworkNodes/NetworkNode0")
 To = NodePath("../../NetworkNodes/NetworkNode1")
 
-[node name="0to2" parent="Network/Edges" node_paths=PackedStringArray("From", "To") instance=ExtResource("2_ifm2w")]
+[node name="0to2" parent="Sandbox/Network/Edges" node_paths=PackedStringArray("From", "To") instance=ExtResource("2_ifm2w")]
 From = NodePath("../../NetworkNodes/NetworkNode0")
 To = NodePath("../../NetworkNodes/NetworkNode2")
 
-[node name="1to2" parent="Network/Edges" node_paths=PackedStringArray("From", "To") instance=ExtResource("2_ifm2w")]
+[node name="1to2" parent="Sandbox/Network/Edges" node_paths=PackedStringArray("From", "To") instance=ExtResource("2_ifm2w")]
 From = NodePath("../../NetworkNodes/NetworkNode1")
 To = NodePath("../../NetworkNodes/NetworkNode2")
 
-[node name="2to3" parent="Network/Edges" node_paths=PackedStringArray("From", "To") instance=ExtResource("2_ifm2w")]
+[node name="2to3" parent="Sandbox/Network/Edges" node_paths=PackedStringArray("From", "To") instance=ExtResource("2_ifm2w")]
 From = NodePath("../../NetworkNodes/NetworkNode2")
 To = NodePath("../../NetworkNodes/NetworkNode3")
 
-[node name="3to4" parent="Network/Edges" node_paths=PackedStringArray("From", "To") instance=ExtResource("2_ifm2w")]
+[node name="3to4" parent="Sandbox/Network/Edges" node_paths=PackedStringArray("From", "To") instance=ExtResource("2_ifm2w")]
 From = NodePath("../../NetworkNodes/NetworkNode3")
 To = NodePath("../../NetworkNodes/NetworkNode4")
 
-[node name="4to5" parent="Network/Edges" node_paths=PackedStringArray("From", "To") instance=ExtResource("2_ifm2w")]
+[node name="4to5" parent="Sandbox/Network/Edges" node_paths=PackedStringArray("From", "To") instance=ExtResource("2_ifm2w")]
 From = NodePath("../../NetworkNodes/NetworkNode4")
 To = NodePath("../../NetworkNodes/NetworkNode5")
 
-[node name="NetworkNodes" type="Node2D" parent="Network"]
+[node name="NetworkNodes" type="Node2D" parent="Sandbox/Network"]
 
-[node name="NetworkNode0" parent="Network/NetworkNodes" instance=ExtResource("3_phs73")]
+[node name="NetworkNode0" parent="Sandbox/Network/NetworkNodes" instance=ExtResource("3_phs73")]
 
-[node name="NetworkNode1" parent="Network/NetworkNodes" instance=ExtResource("3_phs73")]
+[node name="NetworkNode1" parent="Sandbox/Network/NetworkNodes" instance=ExtResource("3_phs73")]
 position = Vector2(300, 0)
 
-[node name="NetworkNode2" parent="Network/NetworkNodes" instance=ExtResource("3_phs73")]
+[node name="NetworkNode2" parent="Sandbox/Network/NetworkNodes" instance=ExtResource("3_phs73")]
 position = Vector2(0, 300)
 
-[node name="NetworkNode3" parent="Network/NetworkNodes" instance=ExtResource("3_phs73")]
+[node name="NetworkNode3" parent="Sandbox/Network/NetworkNodes" instance=ExtResource("3_phs73")]
 position = Vector2(300, 300)
 
-[node name="NetworkNode4" parent="Network/NetworkNodes" instance=ExtResource("3_phs73")]
+[node name="NetworkNode4" parent="Sandbox/Network/NetworkNodes" instance=ExtResource("3_phs73")]
 position = Vector2(600, 300)
 
-[node name="NetworkNode5" parent="Network/NetworkNodes" instance=ExtResource("3_phs73")]
+[node name="NetworkNode5" parent="Sandbox/Network/NetworkNodes" instance=ExtResource("3_phs73")]
 position = Vector2(600, 0)
 
 [node name="Player" parent="." node_paths=PackedStringArray("Network", "NetworkNode") instance=ExtResource("4_4pimd")]
 position = Vector2(56, 79)
-Network = NodePath("../Network")
-NetworkNode = NodePath("../Network/NetworkNodes/NetworkNode0")
+Network = NodePath("../Sandbox/Network")
+NetworkNode = NodePath("../Sandbox/Network/NetworkNodes/NetworkNode0")
 
 [node name="PlayerMovementController" type="Node2D" parent="." node_paths=PackedStringArray("Network", "Player")]
 script = ExtResource("5_hghsw")
-Network = NodePath("../Network")
+Network = NodePath("../Sandbox/Network")
 Player = NodePath("../Player")
+
+[node name="NodeInformationSidebarContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NodeInformationSidebar" type="HBoxContainer" parent="NodeInformationSidebarContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 30.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NodeInformationSidebarContainer/NodeInformationSidebar"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 90.0
+metadata/_edit_use_anchors_ = true
+
+[node name="NodeInformation" type="PanelContainer" parent="NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 20.0
+
+[node name="MarginContainer" type="MarginContainer" parent="NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer/NodeInformation"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer/NodeInformation/MarginContainer"]
+layout_mode = 2
+
+[node name="NodeName" type="Label" parent="NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer/NodeInformation/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "### NODE NAME ###"
+horizontal_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer/NodeInformation/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "NODE ATTRIBUTES NODE ATTRIBUTES NODE ATTRIBUTES NODE ATTRIBUTES NODE ATTRIBUTES NODE ATTRIBUTES "
+
+[node name="NodeCommands" type="PanelContainer" parent="NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 80.0
+
+[node name="MarginContainer" type="MarginContainer" parent="NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer/NodeCommands"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer/NodeCommands/MarginContainer"]
+layout_mode = 2
+
+[node name="InstallBREAK" type="Button" parent="NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer/NodeCommands/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Install BREAK"
+
+[node name="InstallCOLLECT" type="Button" parent="NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer/NodeCommands/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Install COLLECT"
+
+[node name="Disconnect" type="Button" parent="NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer/NodeCommands/MarginContainer/VBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Disconnect
+"
+
+[node name="PanelContainer" type="PanelContainer" parent="NodeInformationSidebarContainer/NodeInformationSidebar"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 10.0
+
+[node name="ToggleSideBarButton" type="Button" parent="NodeInformationSidebarContainer/NodeInformationSidebar/PanelContainer" node_paths=PackedStringArray("Target")]
+layout_mode = 2
+toggle_mode = true
+text = "<"
+script = ExtResource("7_cbbbk")
+TextUncollapsed = "<"
+TextCollapsed = ">"
+Target = NodePath("../../VBoxContainer")
+
+[node name="Padding" type="Control" parent="NodeInformationSidebarContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 70.0
