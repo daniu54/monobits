@@ -37,7 +37,7 @@ public partial class PlayerMovementController : Node2D
             else
             {
                 // Queue up next animation
-                Network.PlayerNavigationPathVisualizer.VisializePath(Network, PlayerMovementPath, Network.GetEdgesOfNodePath(PlayerMovementPath), trackedStartNode: Player);
+                Network.PlayerNavigationPathVisualizer.VisualizePath(Network, PlayerMovementPath, Network.GetEdgesOfNodePath(PlayerMovementPath), trackedStartNode: Player);
 
                 var nextPlayerWaypoint = PlayerMovementPath.Dequeue();
 
@@ -54,7 +54,7 @@ public partial class PlayerMovementController : Node2D
                 {
                     var (pathNodes, pathEdges) = Network.GetNavigationPath(start: Player.NetworkNode, end: PathPreviewTarget);
 
-                    Network.PlayerNavigationPreviewVisualizer.VisializePath(Network, pathNodes, pathEdges, trackedStartNode: Player);
+                    Network.PlayerNavigationPreviewVisualizer.VisualizePath(Network, pathNodes, pathEdges, trackedStartNode: Player);
                 }
             }
         }
@@ -66,7 +66,7 @@ public partial class PlayerMovementController : Node2D
 
         PlayerMovementPath = new(pathNodes);
 
-        Network.PlayerNavigationPathVisualizer.VisializePath(Network, PlayerMovementPath, Network.GetEdgesOfNodePath(PlayerMovementPath), trackedStartNode: Player);
+        Network.PlayerNavigationPathVisualizer.VisualizePath(Network, PlayerMovementPath, Network.GetEdgesOfNodePath(PlayerMovementPath), trackedStartNode: Player);
     }
 
     void OnNetworkNodeMouseEnter(NetworkNode node, Network network)
@@ -75,7 +75,7 @@ public partial class PlayerMovementController : Node2D
 
         var (pathNodes, pathEdges) = Network.GetNavigationPath(start: Player.NetworkNode, end: PathPreviewTarget);
 
-        Network.PlayerNavigationPreviewVisualizer.VisializePath(Network, pathNodes, pathEdges, trackedStartNode: Player);
+        Network.PlayerNavigationPreviewVisualizer.VisualizePath(Network, pathNodes, pathEdges, trackedStartNode: Player);
     }
 
     void OnNetworkNodeMouseExit(NetworkNode _, Network network)
