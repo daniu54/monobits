@@ -12,7 +12,7 @@ namespace ui;
 public partial class ToggleCollapseButton : Button
 {
     [Export]
-    string TextUncollapsed
+    public string TextUncollapsed
     {
         get => _textUncollapsed;
         set
@@ -23,7 +23,7 @@ public partial class ToggleCollapseButton : Button
     }
 
     [Export]
-    string TextCollapsed
+    public string TextCollapsed
     {
         get => _textCollapsed;
         set
@@ -37,7 +37,7 @@ public partial class ToggleCollapseButton : Button
     private string _textCollapsed;
 
     [Export]
-    Control Target
+    public Control Target
     {
         get => target;
         set
@@ -53,7 +53,7 @@ public partial class ToggleCollapseButton : Button
 
     private Control target;
 
-    Control TargetParent;
+    private Control TargetParent;
 
     public override void _Ready()
     {
