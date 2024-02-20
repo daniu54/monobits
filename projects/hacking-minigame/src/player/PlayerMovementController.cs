@@ -21,7 +21,10 @@ public partial class PlayerMovementController : Node2D
         Network.NetworkNodeMouseExit += OnNetworkNodeMouseExit;
 
         // Move player to initial node
-        PlayerMovementPath.Enqueue(Player.NetworkNode);
+        if (Player.TargetMovementPosition is not null)
+        {
+            PlayerMovementPath.Enqueue(Player.TargetMovementPosition);
+        }
     }
 
     public override void _Process(double delta)
@@ -29,6 +32,16 @@ public partial class PlayerMovementController : Node2D
         if (PlayerMovementAnimation is null ||
         (PlayerMovementAnimation is not null && !PlayerMovementAnimation.IsRunning()))
         {
+            // finished movement animation
+
+            if (Player.TargetMovementPosition is not null)
+            {
+                if (Player.CurrentPosition is null || Player.TargetMovementPosition.GetInstanceId() != Player.CurrentPosition.GetInstanceId())
+                {
+                    Player.CurrentPosition = Player.TargetMovementPosition;
+                }
+            }
+
             if (PlayerMovementPath.Count == 0)
             {
                 // Nothing to do
@@ -41,8 +54,7 @@ public partial class PlayerMovementController : Node2D
 
                 var nextPlayerWaypoint = PlayerMovementPath.Dequeue();
 
-                // NOTE: update position before moving
-                Player.NetworkNode = nextPlayerWaypoint;
+                Player.TargetMovementPosition = nextPlayerWaypoint;
 
                 var newMovementAnimation = CreateTween();
 
@@ -52,7 +64,7 @@ public partial class PlayerMovementController : Node2D
 
                 if (PathPreviewTarget is not null)
                 {
-                    var (pathNodes, pathEdges) = Network.GetNavigationPath(start: Player.NetworkNode, end: PathPreviewTarget);
+                    var (pathNodes, pathEdges) = Network.GetNavigationPath(start: Player.TargetMovementPosition, end: PathPreviewTarget);
 
                     Network.PlayerNavigationPreviewVisualizer.VisualizePath(Network, pathNodes, pathEdges, trackedStartNode: Player);
                 }
@@ -62,7 +74,7 @@ public partial class PlayerMovementController : Node2D
 
     private void OnNetworkNodeClicked(NetworkNode node, Network network)
     {
-        var (pathNodes, _) = network.GetNavigationPath(start: Player.NetworkNode, end: node);
+        var (pathNodes, _) = network.GetNavigationPath(start: Player.TargetMovementPosition, end: node);
 
         PlayerMovementPath = new(pathNodes);
 
@@ -73,7 +85,7 @@ public partial class PlayerMovementController : Node2D
     {
         PathPreviewTarget = node;
 
-        var (pathNodes, pathEdges) = Network.GetNavigationPath(start: Player.NetworkNode, end: PathPreviewTarget);
+        var (pathNodes, pathEdges) = Network.GetNavigationPath(start: Player.TargetMovementPosition, end: PathPreviewTarget);
 
         Network.PlayerNavigationPreviewVisualizer.VisualizePath(Network, pathNodes, pathEdges, trackedStartNode: Player);
     }
