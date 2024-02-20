@@ -48,7 +48,7 @@ public partial class NetworkNodePathVisualizer : Node2D
         }
     }
 
-    public void VisializePath(Network network, IEnumerable<NetworkNode> pathNodes, IEnumerable<Edge> pathEdges, Node2D trackedStartNode = null)
+    public void VisualizePath(Network network, IEnumerable<NetworkNode> pathNodes, IEnumerable<Edge> pathEdges, Node2D trackedStartNode = null)
     {
         MarkedNodes = new(pathNodes);
         MarkedEdges = new(pathEdges);
