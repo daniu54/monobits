@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d3p67j68lg26b"]
+[gd_scene load_steps=9 format=3 uid="uid://d3p67j68lg26b"]
 
 [ext_resource type="Script" path="res://src/network/Network.cs" id="1_r1xda"]
 [ext_resource type="PackedScene" uid="uid://dsx77i0fiws4x" path="res://src/network/edge.tscn" id="2_ifm2w"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cbnnj6rc7ldlx" path="res://src/network/network_node.tscn" id="3_phs73"]
 [ext_resource type="PackedScene" uid="uid://drkhn2puxovdv" path="res://src/player/player.tscn" id="4_4pimd"]
 [ext_resource type="Script" path="res://src/player/PlayerMovementController.cs" id="5_hghsw"]
+[ext_resource type="Script" path="res://src/ui/NodeInformationSidebar.cs" id="7_1uhm6"]
 [ext_resource type="Script" path="res://src/ui/ToggleCollapseButton.cs" id="7_cbbbk"]
 
 [node name="Root" type="Control"]
@@ -101,13 +102,17 @@ script = ExtResource("5_hghsw")
 Network = NodePath("../Level/Sandbox/Network")
 Player = NodePath("../Player")
 
-[node name="NodeInformationSidebarContainer" type="HBoxContainer" parent="LevelUi"]
+[node name="NodeInformationSidebarContainer" type="HBoxContainer" parent="LevelUi" node_paths=PackedStringArray("Player", "CurrentNodeName", "SidebarToggle")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("7_1uhm6")
+Player = NodePath("../Player")
+CurrentNodeName = NodePath("NodeInformationSidebar/VBoxContainer/NodeInformation/MarginContainer/VBoxContainer/NodeName")
+SidebarToggle = NodePath("NodeInformationSidebar/PanelContainer/ToggleSideBarButton")
 
 [node name="NodeInformationSidebar" type="HBoxContainer" parent="LevelUi/NodeInformationSidebarContainer"]
 layout_mode = 2
@@ -186,6 +191,7 @@ layout_mode = 2
 toggle_mode = true
 button_pressed = true
 text = ">"
+text_overrun_behavior = 2
 script = ExtResource("7_cbbbk")
 TextUncollapsed = "<"
 TextCollapsed = ">"
