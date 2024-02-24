@@ -31,11 +31,9 @@ public partial class PlayerMovementController : Node2D
         Network.NetworkNodeMouseEnter += OnNetworkNodeMouseEnter;
         Network.NetworkNodeMouseExit += OnNetworkNodeMouseExit;
 
-        // Move player to initial node
-        if (Network.Nodes.Count > 0)
-        {
-            PlayerMovementPath.Enqueue(Network.Nodes[0]);
-        }
+        var initialPlayerPosition = Player.TargetMovementPosition ?? LevelLoader.Level.PlayerStartingPosition;
+        Player.GlobalPosition = initialPlayerPosition.GlobalPosition;
+        PlayerMovementPath.Enqueue(initialPlayerPosition);
     }
 
     public override void _Process(double delta)
