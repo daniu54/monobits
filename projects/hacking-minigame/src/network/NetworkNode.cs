@@ -5,8 +5,6 @@ namespace network;
 [Tool]
 public partial class NetworkNode : Node2D
 {
-    [Export] public Network Network;
-
     [Signal] public delegate void NetworkNodePositionChangedEventHandler(NetworkNode node);
     [Signal] public delegate void NetworkNodeClickedEventHandler(NetworkNode node);
     [Signal] public delegate void NetworkNodeMouseEnterEventHandler(NetworkNode node);
@@ -33,11 +31,6 @@ public partial class NetworkNode : Node2D
             EmitSignal(nameof(NetworkNodePositionChanged), this);
             return;
         }
-    }
-
-    public void Initialize(Network newNetwork)
-    {
-        Network = newNetwork;
     }
 
     private void OnNodeClicked(Node viewport, InputEvent @event, long shapeIdx)

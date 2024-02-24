@@ -5,8 +5,6 @@ namespace network;
 [Tool]
 public partial class Edge : Node2D
 {
-    [Export] public Network network;
-
     [Export]
     public NetworkNode From
     {
@@ -59,11 +57,6 @@ public partial class Edge : Node2D
     private void OnNetworkNodePositionChanged(NetworkNode node)
     {
         RedrawEdge();
-    }
-
-    public void Initialize(Network newNetwork)
-    {
-        network = newNetwork;
     }
 
     public void RedrawEdge()

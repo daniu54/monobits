@@ -7,8 +7,6 @@ public partial class Player : Node2D
 {
     [Signal] public delegate void ArrivedAtNodeEventHandler(NetworkNode node, Player player);
 
-    [Export] public Network Network;
-
     [Export] public int MovementSpeed = 200;
 
     [Export] public NetworkNode TargetMovementPosition;

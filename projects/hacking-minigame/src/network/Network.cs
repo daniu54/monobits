@@ -11,9 +11,6 @@ public partial class Network : Node2D
     public Array<NetworkNode> Nodes = null;
     public Array<Edge> Edges = null;
 
-    public NetworkNodePathVisualizer PlayerNavigationPathVisualizer;
-    public NetworkNodePathVisualizer PlayerNavigationPreviewVisualizer;
-
     private AStar2D navigation;
 
     [Signal] public delegate void NetworkNodeClickedEventHandler(NetworkNode node, Network network);
@@ -22,10 +19,6 @@ public partial class Network : Node2D
 
     public override void _Ready()
     {
-        PlayerNavigationPathVisualizer = GetNode<NetworkNodePathVisualizer>("PlayerNavigationPathVisualizer");
-
-        PlayerNavigationPreviewVisualizer = GetNode<NetworkNodePathVisualizer>("PlayerNavigationPreviewVisualizer");
-
         navigation = new();
 
         Nodes = GetNode("NetworkNodes").GetChildren<NetworkNode>();
@@ -33,7 +26,6 @@ public partial class Network : Node2D
 
         foreach (var node in Nodes)
         {
-            node.Initialize(this);
             node.NetworkNodeClicked += OnNetworkNodeClicked;
             node.NetworkNodeMouseEnter += OnNetworkNodeMouseEnter;
             node.NetworkNodeMouseExit += OnNetworkNodeMouseExit;
@@ -43,7 +35,6 @@ public partial class Network : Node2D
 
         foreach (var edge in Edges)
         {
-            edge.Initialize(this);
             navigation.ConnectPoints((long)edge.From.GetInstanceId(), (long)edge.To.GetInstanceId());
         }
     }
