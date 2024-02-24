@@ -17,13 +17,22 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="PlayerNavigationPreviewVisualizer" type="Node2D" parent="."]
+[node name="LevelUi" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PlayerNavigationPreviewVisualizer" type="Node2D" parent="LevelUi"]
 position = Vector2(300, 150)
 script = ExtResource("2_wir33")
 PathNodeColor = Color(0, 1, 0, 0)
 TrackedStartNodeColor = Color(0, 1, 0, 0)
 
-[node name="PlayerNavigationPathVisualizer" type="Node2D" parent="."]
+[node name="PlayerNavigationPathVisualizer" type="Node2D" parent="LevelUi"]
 position = Vector2(300, 150)
 script = ExtResource("2_wir33")
 PathNodeColor = Color(0.858824, 0.278431, 0.262745, 0)
@@ -31,21 +40,21 @@ PathEdgeColor = Color(0.72549, 0.392157, 0.160784, 1)
 TrackedStartNodeColor = Color(0.858824, 0.278431, 0.262745, 0)
 TrackedStartNodeEdgeColor = Color(0.72549, 0.392157, 0.160784, 1)
 
-[node name="LevelLoader" type="Node2D" parent="."]
+[node name="LevelLoader" type="Node2D" parent="LevelUi"]
 script = ExtResource("2_l8qvd")
 LevelScene = ExtResource("3_82rxa")
 
-[node name="Player" parent="." instance=ExtResource("5_nqfiu")]
+[node name="Player" parent="LevelUi" instance=ExtResource("5_nqfiu")]
 position = Vector2(56, 79)
 
-[node name="PlayerMovementController" type="Node2D" parent="." node_paths=PackedStringArray("LevelLoader", "Player", "PlayerNavigationPathVisualizer", "PlayerNavigationPreviewVisualizer")]
+[node name="PlayerMovementController" type="Node2D" parent="LevelUi" node_paths=PackedStringArray("LevelLoader", "Player", "PlayerNavigationPathVisualizer", "PlayerNavigationPreviewVisualizer")]
 script = ExtResource("6_0uiiq")
 LevelLoader = NodePath("../LevelLoader")
 Player = NodePath("../Player")
 PlayerNavigationPathVisualizer = NodePath("../PlayerNavigationPathVisualizer")
 PlayerNavigationPreviewVisualizer = NodePath("../PlayerNavigationPreviewVisualizer")
 
-[node name="NodeInformationSidebarContainer" type="HBoxContainer" parent="." node_paths=PackedStringArray("Player", "CurrentNodeName", "SidebarToggle")]
+[node name="NodeInformationSidebarContainer" type="HBoxContainer" parent="LevelUi" node_paths=PackedStringArray("Player", "CurrentNodeName", "SidebarToggle")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -57,79 +66,79 @@ Player = NodePath("../Player")
 CurrentNodeName = NodePath("NodeInformationSidebar/VBoxContainer/NodeInformation/MarginContainer/VBoxContainer/NodeName")
 SidebarToggle = NodePath("NodeInformationSidebar/PanelContainer/ToggleSideBarButton")
 
-[node name="NodeInformationSidebar" type="HBoxContainer" parent="NodeInformationSidebarContainer"]
+[node name="NodeInformationSidebar" type="HBoxContainer" parent="LevelUi/NodeInformationSidebarContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="NodeInformationSidebarContainer/NodeInformationSidebar"]
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelUi/NodeInformationSidebarContainer/NodeInformationSidebar"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 90.0
 metadata/_edit_use_anchors_ = true
 
-[node name="NodeInformation" type="PanelContainer" parent="NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer"]
+[node name="NodeInformation" type="PanelContainer" parent="LevelUi/NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 20.0
 
-[node name="MarginContainer" type="MarginContainer" parent="NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer/NodeInformation"]
+[node name="MarginContainer" type="MarginContainer" parent="LevelUi/NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer/NodeInformation"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer/NodeInformation/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelUi/NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer/NodeInformation/MarginContainer"]
 layout_mode = 2
 
-[node name="NodeName" type="Label" parent="NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer/NodeInformation/MarginContainer/VBoxContainer"]
+[node name="NodeName" type="Label" parent="LevelUi/NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer/NodeInformation/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 text = "### NODE NAME ###"
 horizontal_alignment = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer/NodeInformation/MarginContainer/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="LevelUi/NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer/NodeInformation/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "NODE ATTRIBUTES NODE ATTRIBUTES NODE ATTRIBUTES NODE ATTRIBUTES NODE ATTRIBUTES NODE ATTRIBUTES "
 
-[node name="NodeCommands" type="PanelContainer" parent="NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer"]
+[node name="NodeCommands" type="PanelContainer" parent="LevelUi/NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 80.0
 
-[node name="MarginContainer" type="MarginContainer" parent="NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer/NodeCommands"]
+[node name="MarginContainer" type="MarginContainer" parent="LevelUi/NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer/NodeCommands"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer/NodeCommands/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelUi/NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer/NodeCommands/MarginContainer"]
 layout_mode = 2
 
-[node name="InstallBREAK" type="Button" parent="NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer/NodeCommands/MarginContainer/VBoxContainer"]
+[node name="InstallBREAK" type="Button" parent="LevelUi/NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer/NodeCommands/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Install BREAK"
 
-[node name="InstallCOLLECT" type="Button" parent="NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer/NodeCommands/MarginContainer/VBoxContainer"]
+[node name="InstallCOLLECT" type="Button" parent="LevelUi/NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer/NodeCommands/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Install COLLECT"
 
-[node name="Disconnect" type="Button" parent="NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer/NodeCommands/MarginContainer/VBoxContainer"]
+[node name="Disconnect" type="Button" parent="LevelUi/NodeInformationSidebarContainer/NodeInformationSidebar/VBoxContainer/NodeCommands/MarginContainer/VBoxContainer"]
 layout_mode = 2
 disabled = true
 text = "Disconnect
 "
 
-[node name="PanelContainer" type="PanelContainer" parent="NodeInformationSidebarContainer/NodeInformationSidebar"]
+[node name="PanelContainer" type="PanelContainer" parent="LevelUi/NodeInformationSidebarContainer/NodeInformationSidebar"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 10.0
 
-[node name="ToggleSideBarButton" type="Button" parent="NodeInformationSidebarContainer/NodeInformationSidebar/PanelContainer" node_paths=PackedStringArray("Target")]
+[node name="ToggleSideBarButton" type="Button" parent="LevelUi/NodeInformationSidebarContainer/NodeInformationSidebar/PanelContainer" node_paths=PackedStringArray("Target")]
 layout_mode = 2
 toggle_mode = true
 button_pressed = true
@@ -140,7 +149,7 @@ TextUncollapsed = "<"
 TextCollapsed = ">"
 Target = NodePath("../../VBoxContainer")
 
-[node name="Padding" type="Control" parent="NodeInformationSidebarContainer"]
+[node name="Padding" type="Control" parent="LevelUi/NodeInformationSidebarContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 97.0
