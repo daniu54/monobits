@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 using Godot.Collections;
 
@@ -10,21 +11,17 @@ public static class NodeExtensions
     /// </summary>
     /// <typeparam name="T">The required type of child nodes.</typeparam>
     /// <param name="node">The <see cref="Node"/> to search.</param>
-    /// <returns></returns>
-    public static Array<T> GetChildren<[MustBeVariant] T>(this Node node)
+    /// <returns>An <see cref="IEnumerable{T}"/> containing the found children.</returns>
+    public static IEnumerable<T> GetChildren<[MustBeVariant] T>(this Node node)
         where T : Node
     {
-        var result = new Array<T>();
-
         foreach (var child in node.GetChildren())
         {
             if (child is T)
             {
-                result.Add(child as T);
+                yield return child as T;
             }
         }
-
-        return result;
     }
 
     public static Tween MoveToNode(this Node2D node, Node2D target, int movementSpeed, Tween existingTween = null)

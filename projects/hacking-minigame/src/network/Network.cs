@@ -21,8 +21,8 @@ public partial class Network : Node2D
     {
         navigation = new();
 
-        Nodes = GetNode("NetworkNodes").GetChildren<NetworkNode>();
-        Edges = GetNode("Edges").GetChildren<Edge>();
+        Nodes = new Array<NetworkNode>(GetNode("NetworkNodes").GetChildren<NetworkNode>());
+        Edges = new Array<Edge>(GetNode("Edges").GetChildren<Edge>());
 
         foreach (var node in Nodes)
         {

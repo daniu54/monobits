@@ -124,7 +124,7 @@ public partial class ToggleCollapseButton : Button
 
     private void CollapseTargetUsingContainerRatio(bool isCollapsed)
     {
-        var parentChildren = new List<Control>(TargetParent.GetChildren<Control>());
+        var parentChildren = TargetParent.GetChildren<Control>();
 
         var totalRatioOfParentChildren = parentChildren.Sum(c => c.SizeFlagsStretchRatio);
 

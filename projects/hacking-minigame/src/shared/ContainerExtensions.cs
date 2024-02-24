@@ -12,7 +12,7 @@ public static class ControlExtensions
 
         control.SizeFlagsStretchRatio = newRatio;
 
-        var containerSiblings = new List<Control>(control.GetParent().GetChildren<Control>())
+        var containerSiblings = control.GetParent().GetChildren<Control>()
             .Where(s => s.GetInstanceId() != control.GetInstanceId()).ToList();
 
         var ratioToCompensatePerSibling = ratioToCompensate / containerSiblings.Count;
