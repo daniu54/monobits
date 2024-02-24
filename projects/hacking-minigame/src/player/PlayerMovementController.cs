@@ -8,7 +8,7 @@ namespace player;
 
 public partial class PlayerMovementController : Node2D
 {
-    [Export] public Network Network;
+    [Export] public LevelLoader LevelLoader;
     [Export] public Player Player;
 
     public NetworkNode PathPreviewTarget = null;
@@ -18,8 +18,12 @@ public partial class PlayerMovementController : Node2D
     [Export] public NetworkNodePathVisualizer PlayerNavigationPathVisualizer;
     [Export] public NetworkNodePathVisualizer PlayerNavigationPreviewVisualizer;
 
+    private Network Network;
+
     public override void _Ready()
     {
+        Network = LevelLoader.Network;
+
         ArgumentNullException.ThrowIfNull(Player);
         ArgumentNullException.ThrowIfNull(Network);
 
@@ -28,9 +32,9 @@ public partial class PlayerMovementController : Node2D
         Network.NetworkNodeMouseExit += OnNetworkNodeMouseExit;
 
         // Move player to initial node
-        if (Player.TargetMovementPosition is not null)
+        if (Network.Nodes.Count > 0)
         {
-            PlayerMovementPath.Enqueue(Player.TargetMovementPosition);
+            PlayerMovementPath.Enqueue(Network.Nodes[0]);
         }
     }
 

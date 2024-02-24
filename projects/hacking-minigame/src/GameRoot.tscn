@@ -1,10 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://cjihi3g3es5fa"]
+[gd_scene load_steps=8 format=3 uid="uid://cjihi3g3es5fa"]
 
-[ext_resource type="Script" path="res://src/network/Network.cs" id="1_4hnpi"]
+[ext_resource type="Script" path="res://src/levels/LevelLoader.cs" id="2_l8qvd"]
 [ext_resource type="Script" path="res://src/network/NetworkNodePathVisualizer.cs" id="2_wir33"]
-[ext_resource type="PackedScene" uid="uid://dsx77i0fiws4x" path="res://src/network/edge.tscn" id="3_csi74"]
-[ext_resource type="Script" path="res://src/levels/Level.cs" id="4_46445"]
-[ext_resource type="PackedScene" uid="uid://cbnnj6rc7ldlx" path="res://src/network/network_node.tscn" id="4_xnvi0"]
+[ext_resource type="PackedScene" uid="uid://d3p67j68lg26b" path="res://src/levels/sandbox.tscn" id="3_82rxa"]
 [ext_resource type="PackedScene" uid="uid://drkhn2puxovdv" path="res://src/player/player.tscn" id="5_nqfiu"]
 [ext_resource type="Script" path="res://src/player/PlayerMovementController.cs" id="6_0uiiq"]
 [ext_resource type="Script" path="res://src/ui/NodeInformationSidebar.cs" id="7_xoidd"]
@@ -34,66 +32,15 @@ TrackedStartNodeColor = Color(0.858824, 0.278431, 0.262745, 0)
 TrackedStartNodeEdgeColor = Color(0.72549, 0.392157, 0.160784, 1)
 
 [node name="LevelLoader" type="Node2D" parent="."]
+script = ExtResource("2_l8qvd")
+LevelScene = ExtResource("3_82rxa")
 
-[node name="Sandbox" type="Node2D" parent="LevelLoader"]
-script = ExtResource("4_46445")
-
-[node name="Network" type="Node2D" parent="LevelLoader/Sandbox"]
-position = Vector2(300, 150)
-script = ExtResource("1_4hnpi")
-
-[node name="Edges" type="Node2D" parent="LevelLoader/Sandbox/Network"]
-
-[node name="0to1" parent="LevelLoader/Sandbox/Network/Edges" node_paths=PackedStringArray("From", "To") instance=ExtResource("3_csi74")]
-From = NodePath("../../NetworkNodes/NetworkNode0")
-To = NodePath("../../NetworkNodes/NetworkNode1")
-
-[node name="0to2" parent="LevelLoader/Sandbox/Network/Edges" node_paths=PackedStringArray("From", "To") instance=ExtResource("3_csi74")]
-From = NodePath("../../NetworkNodes/NetworkNode0")
-To = NodePath("../../NetworkNodes/NetworkNode2")
-
-[node name="1to2" parent="LevelLoader/Sandbox/Network/Edges" node_paths=PackedStringArray("From", "To") instance=ExtResource("3_csi74")]
-From = NodePath("../../NetworkNodes/NetworkNode1")
-To = NodePath("../../NetworkNodes/NetworkNode2")
-
-[node name="2to3" parent="LevelLoader/Sandbox/Network/Edges" node_paths=PackedStringArray("From", "To") instance=ExtResource("3_csi74")]
-From = NodePath("../../NetworkNodes/NetworkNode2")
-To = NodePath("../../NetworkNodes/NetworkNode3")
-
-[node name="3to4" parent="LevelLoader/Sandbox/Network/Edges" node_paths=PackedStringArray("From", "To") instance=ExtResource("3_csi74")]
-From = NodePath("../../NetworkNodes/NetworkNode3")
-To = NodePath("../../NetworkNodes/NetworkNode4")
-
-[node name="4to5" parent="LevelLoader/Sandbox/Network/Edges" node_paths=PackedStringArray("From", "To") instance=ExtResource("3_csi74")]
-From = NodePath("../../NetworkNodes/NetworkNode4")
-To = NodePath("../../NetworkNodes/NetworkNode5")
-
-[node name="NetworkNodes" type="Node2D" parent="LevelLoader/Sandbox/Network"]
-
-[node name="NetworkNode0" parent="LevelLoader/Sandbox/Network/NetworkNodes" instance=ExtResource("4_xnvi0")]
-
-[node name="NetworkNode1" parent="LevelLoader/Sandbox/Network/NetworkNodes" instance=ExtResource("4_xnvi0")]
-position = Vector2(300, 0)
-
-[node name="NetworkNode2" parent="LevelLoader/Sandbox/Network/NetworkNodes" instance=ExtResource("4_xnvi0")]
-position = Vector2(0, 300)
-
-[node name="NetworkNode3" parent="LevelLoader/Sandbox/Network/NetworkNodes" instance=ExtResource("4_xnvi0")]
-position = Vector2(300, 300)
-
-[node name="NetworkNode4" parent="LevelLoader/Sandbox/Network/NetworkNodes" instance=ExtResource("4_xnvi0")]
-position = Vector2(600, 300)
-
-[node name="NetworkNode5" parent="LevelLoader/Sandbox/Network/NetworkNodes" instance=ExtResource("4_xnvi0")]
-position = Vector2(600, 0)
-
-[node name="Player" parent="." node_paths=PackedStringArray("TargetMovementPosition") instance=ExtResource("5_nqfiu")]
+[node name="Player" parent="." instance=ExtResource("5_nqfiu")]
 position = Vector2(56, 79)
-TargetMovementPosition = NodePath("../LevelLoader/Sandbox/Network/NetworkNodes/NetworkNode0")
 
-[node name="PlayerMovementController" type="Node2D" parent="." node_paths=PackedStringArray("Network", "Player", "PlayerNavigationPathVisualizer", "PlayerNavigationPreviewVisualizer")]
+[node name="PlayerMovementController" type="Node2D" parent="." node_paths=PackedStringArray("LevelLoader", "Player", "PlayerNavigationPathVisualizer", "PlayerNavigationPreviewVisualizer")]
 script = ExtResource("6_0uiiq")
-Network = NodePath("../LevelLoader/Sandbox/Network")
+LevelLoader = NodePath("../LevelLoader")
 Player = NodePath("../Player")
 PlayerNavigationPathVisualizer = NodePath("../PlayerNavigationPathVisualizer")
 PlayerNavigationPreviewVisualizer = NodePath("../PlayerNavigationPreviewVisualizer")
