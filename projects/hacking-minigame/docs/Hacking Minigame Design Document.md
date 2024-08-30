@@ -25,9 +25,6 @@ The programs include:
 - display of the programs which can be installed at the current node
 - player movement using the mouse
 
-# Timeline
- Gateway, Database, Firewall as well `BREAK`, `COLLECT` and `DISCONNECT` should be implemented by April 2024.
-
 # Out of Scope
 ## Enemy Ai Actors
 Need solid network implementation first. Very welcome in future iterations.
